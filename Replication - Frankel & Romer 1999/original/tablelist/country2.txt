@@ -1,0 +1,70 @@
+Countries included in bilateral trade data set (trade62.dat)
+"Does Trade Cause Growth?" 
+Jeffrey A. Frankel and David Romer
+
+code	country		
+
+1	Canada
+2	France
+3	W. Germany
+4	Italy
+5	Japan
+6	UK
+7	US
+8	Austria
+9	Belgium
+10	Denmark
+11	Finland
+12	Netherlands
+13	Norway
+14	Sweden
+15	Switzerland
+16	Australia
+17	Greece
+18	Iceland		
+19	Ireland
+20	New Zealand
+21	Portugal
+22	Spain
+23	South Africa
+24	Turkey
+25	Yugoslavia	
+26	Israel
+
+28	Argentina
+29	Brazil
+30	Chile
+31	Colombia
+32	Ecuador
+33	Mexico
+34	Peru
+35	Venezuela
+36	Bolivia
+37	Paraguay
+38	Uruguay
+39	Algeria
+
+41	Nigeria
+42	Egypt
+43	Morocco
+44	Tunisia
+45	Sudan
+46	Ghana
+47	Kenya
+48	Ethiopia
+49	Iran	
+50	Kuwait
+51	Saudi Arabia
+52	Indonesia
+53	Taiwan		
+54	Hong Kong
+55	India
+56	South Korea
+57	Malaysia
+58	Pakistan
+59	Philippines
+60	Singapore
+61	Thailand
+62	Hungary
+63	Poland
+64	China

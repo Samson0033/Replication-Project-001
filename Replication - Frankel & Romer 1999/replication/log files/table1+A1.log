@@ -1,0 +1,143 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\E
+> conometrics II\Writing Assignment\Stata\table1+A1.log
+  log type:  text
+ opened on:  28 Apr 2020, 13:08:27
+
+. 
+. 
+. **************************************************************************
+. *                                                                            
+>                                                                     *
+. *                                        PART I: BILATERAL TRADE EQUATION    
+>                                     *
+. *                                                                            
+>                                                                     *
+. **************************************************************************
+. 
+. * Loading the data
+. use table1
+
+. 
+. * Drop observations where bilateral trade is 0
+. drop if trade==0
+(562 observations deleted)
+
+. 
+. * Generating the relevant variables for the bilateral trade regression
+. gen trdsh = trade/gdpi
+
+. gen ltrdsh = log(trdsh)
+
+. 
+. gen lworki = log(worki)
+
+. gen lworkj = log(workj)
+
+. gen lareai = log(areai)
+
+. gen lareaj = log(areaj)
+
+. gen ldist = log(dist)
+
+. 
+. gen adjdist = adj * ldist
+
+. gen lockij = locki + lockj
+
+. gen adjlij = adj * lockij
+
+. gen adjworki = adj * lworki
+
+. gen adjworkj = adj * lworkj
+
+. gen adjareai = adj * lareai
+
+. gen adjareaj = adj * lareaj
+
+. 
+. * Estimating the bilateral trade equation
+. reg ltrdsh ldist lworki lareai lworkj lareaj lockij adj adjdist adjworki adja
+> reai adjworkj adjareaj adjlij
+
+      Source |       SS           df       MS      Number of obs   =     3,220
+-------------+----------------------------------   F(13, 3206)     =    139.13
+       Model |   4885.1038        13  375.777215   Prob > F        =    0.0000
+    Residual |  8659.24191     3,206  2.70094882   R-squared       =    0.3607
+-------------+----------------------------------   Adj R-squared   =    0.3581
+       Total |  13544.3457     3,219  4.20762526   Root MSE        =    1.6435
+
+------------------------------------------------------------------------------
+      ltrdsh |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       ldist |  -.8521008   .0376159   -22.65   0.000    -.9258544   -.7783472
+      lworki |  -.2392845   .0256582    -9.33   0.000    -.2895926   -.1889763
+      lareai |  -.1205592   .0183011    -6.59   0.000    -.1564423    -.084676
+      lworkj |   .6092559   .0256582    23.75   0.000     .5589478     .659564
+      lareaj |  -.1851037   .0183011   -10.11   0.000    -.2209868   -.1492205
+      lockij |  -.3609414     .08367    -4.31   0.000    -.5249936   -.1968892
+         adj |   5.095176   1.779729     2.86   0.004     1.605655    8.584698
+     adjdist |   .1507397   .3026958     0.50   0.619    -.4427572    .7442366
+    adjworki |  -.2923778   .1805864    -1.62   0.106    -.6464542    .0616986
+    adjareai |  -.0572496   .1514008    -0.38   0.705    -.3541017    .2396026
+    adjworkj |   -.136514   .1805864    -0.76   0.450    -.4905904    .2175624
+    adjareaj |  -.0690563   .1514008    -0.46   0.648    -.3659084    .2277958
+      adjlij |   .3262135   .3308079     0.99   0.324    -.3224029    .9748299
+       _cons |  -6.377705   .4151964   -15.36   0.000    -7.191782   -5.563628
+------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. estat vce
+
+Covariance matrix of coefficients of regress model
+
+        e(V) |      ldist      lworki      lareai      lworkj      lareaj      lockij 
+-------------+------------------------------------------------------------------------
+       ldist |  .00141495                                                             
+      lworki |  .00001059   .00065834                                                 
+      lareai | -.00008434  -.00026187   .00033493                                     
+      lworkj |  .00001059   .00004917  -.00002606   .00065834                         
+      lareaj | -.00008434  -.00002606   .00002666  -.00026187   .00033493             
+      lockij |  .00018562   .00022894   .00003127   .00022894   .00003127   .00700067 
+         adj |  .01057162   .00312849   .00092313   .00312849   .00092313   .00749157 
+     adjdist | -.00141495  -.00001059   .00008434  -.00001059   .00008434  -.00018562 
+    adjworki | -.00001059  -.00065834   .00026187  -.00004917   .00002606  -.00022894 
+    adjareai |  .00008434   .00026187  -.00033493   .00002606  -.00002666  -.00003127 
+    adjworkj | -.00001059  -.00004917   .00002606  -.00065834   .00026187  -.00022894 
+    adjareaj |  .00008434   .00002606  -.00002666   .00026187  -.00033493  -.00003127 
+      adjlij | -.00018562  -.00022894  -.00003127  -.00022894  -.00003127  -.00700067 
+       _cons | -.01057162  -.00312849  -.00092313  -.00312849  -.00092313  -.00749157 
+
+        e(V) |        adj     adjdist    adjworki    adjareai    adjworkj    adjareaj 
+-------------+------------------------------------------------------------------------
+         adj |  3.1674341                                                             
+     adjdist | -.05187458   .09162475                                                 
+    adjworki | -.09696567  -.00737454   .03261143                                     
+    adjareai |  -.0380112  -.01790178  -.01681488    .0229222                         
+    adjworkj | -.09696569  -.00737454  -.01323307   .01398807   .03261143             
+    adjareaj | -.03801118  -.01790178   .01398807  -.00767586  -.01681488   .02292219 
+      adjlij | -.21382519  -.01569227    .0073488   .00637541    .0073488   .00637541 
+       _cons | -.17238804   .01057162   .00312849   .00092313   .00312849   .00092313 
+
+        e(V) |     adjlij       _cons 
+-------------+------------------------
+      adjlij |  .10943386             
+       _cons |  .00749157   .17238804 
+
+. do "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II
+> \Writing Assignment\Stata\stderror0.do"
+
+. 
+. **************************************************************************
+. *                                                                                   
+>                                                              *
+. *                                       about this .do file ......                  
+>                                      *
+. *                                                                                   
+>                                                              *
+. **************************************************************************
+. 
+. capture log close

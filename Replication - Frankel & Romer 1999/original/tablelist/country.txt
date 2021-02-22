@@ -1,0 +1,169 @@
+Country list for "Does Trade Cause Growth?" 
+Jeffrey A. Frankel and David Romer
+
+				150-country		98-country	
+				sample		sample
+				
+  1 ALGERIA             x			x
+  2 ANGOLA              x			x
+  3 BENIN               x			x
+  4 BOTSWANA            x			x
+  5 BURKINA FASO        x			x
+  6 BURUNDI             x			x
+  7 CAMEROON            x			x
+  8 CAPE VERDE IS.      x
+  9 CENTRAL AFR.R.      x			x
+ 10 CHAD                x			x
+ 11 COMOROS             x
+ 12 CONGO               x			x
+ 13 DJIBOUTI            x
+ 14 EGYPT               x			x
+ 15 ETHIOPIA            x			x
+ 16 GABON               x
+ 17 GAMBIA              x
+ 18 GHANA               x			x
+ 19 GUINEA              x
+ 20 GUINEA-BISS         x
+ 21 IVORY COAST         x			x
+ 22 KENYA               x			x
+ 23 LESOTHO             x
+ 24 LIBERIA             x			x
+ 25 MADAGASCAR          x			x
+ 26 MALAWI              x			x
+ 27 MALI                x			x
+ 28 MAURITANIA          x			x
+ 29 MAURITIUS           x			x
+ 30 MOROCCO             x			x
+ 31 MOZAMBIQUE          x			x
+ 32 NAMIBIA             x
+ 33 NIGER               x			x
+ 34 NIGERIA             x			x
+ 35 REUNION             x
+ 36 RWANDA              x			x
+ 37 SENEGAL             x			x
+ 38 SEYCHELLES          x
+ 39 SIERRA LEONE        x			x
+ 40 SOMALIA             x			x
+ 41 SOUTH AFRICA        x			x
+ 42 SUDAN               x			x
+ 43 SWAZILAND           x
+ 44 TANZANIA            x			x
+ 45 TOGO                x			x
+ 46 TUNISIA             x			x
+ 47 UGANDA              x			x
+ 48 ZAIRE               x			x
+ 49 ZAMBIA              x			x
+ 50 ZIMBABWE            x			x
+ 51 BAHAMAS             x
+ 52 BARBADOS            x
+ 53 BELIZE              x
+ 54 CANADA              x			x
+ 55 COSTA RICA          x			x
+ 56 DOMINICA            x
+ 57 DOMINICAN REP.      x			x
+ 58 EL SALVADOR         x			x
+ 59 GRENADA             x
+ 60 GUATEMALA           x			x
+ 61 HAITI               x			x
+ 62 HONDURAS            x			x
+ 63 JAMAICA             x			x
+ 64 MEXICO              x			x
+ 65 NICARAGUA           x			x
+ 66 PANAMA              x			x
+ 67 PUERTO RICO         x
+ 68 ST.LUCIA            x
+ 69 ST.VINCENT&GRE      x
+ 70 TRINIDAD&TOBAGO     x			x
+ 71 U.S.A.              x			x
+ 72 ARGENTINA           x			x
+ 73 BOLIVIA             x			x
+ 74 BRAZIL              x			x
+ 75 CHILE               x			x
+ 76 COLOMBIA            x			x
+ 77 ECUADOR             x			x
+ 78 GUYANA              x
+ 79 PARAGUAY            x			x
+ 80 PERU                x			x
+ 81 SURINAME            x
+ 82 URUGUAY             x			x
+ 83 VENEZUELA           x			x
+ 84 BAHRAIN             x
+ 85 BANGLADESH          x			x
+ 86 BHUTAN              x
+ 87 CHINA               x
+ 88 HONG KONG           x			x
+ 89 INDIA               x			x
+ 90 INDONESIA           x			x
+ 91 IRAN                x
+ 92 IRAQ                x
+ 93 ISRAEL              x			x
+ 94 JAPAN               x			x
+ 95 JORDAN              x			x
+ 96 KOREA, REP.         x			x
+ 97 KUWAIT              x
+ 98 LAOS                x
+ 99 MALAYSIA            x			x
+100 MONGOLIA            x
+101 MYANMAR             x			x
+102 NEPAL               x			x
+103 OMAN                x
+104 PAKISTAN            x			x
+105 PHILIPPINES         x			x
+106 QATAR               x
+107 SAUDI ARABIA        x
+108 SINGAPORE           x			x
+109 SRI LANKA           x			x
+110 SYRIA               x			x
+111 TAIWAN              x
+112 THAILAND            x			x
+113 UNITED ARAB E.      x
+114 YEMEN               x
+115 AUSTRIA             x			x
+116 BELGIUM             x			x
+117 BULGARIA            x
+118 CYPRUS              x
+119 CZECHOSLOVAKIA      x
+120 DENMARK             x			x
+121 FINLAND             x			x
+122 FRANCE              x			x
+123 GERMANY, WEST       x			x
+124 GREECE              x			x
+125 HUNGARY             x
+126 ICELAND             x
+127 IRELAND             x			x
+128 ITALY               x			x
+129 LUXEMBOURG          x
+130 MALTA               x
+131 NETHERLANDS         x			x
+132 NORWAY              x			x
+133 POLAND              x
+134 PORTUGAL            x			x
+135 ROMANIA             x
+136 SPAIN               x			x
+137 SWEDEN              x			x
+138 SWITZERLAND         x			x
+139 TURKEY              x			x
+140 U.K.                x			x
+141 U.S.S.R.            x
+142 YUGOSLAVIA          x
+143 AUSTRALIA           x			x
+144 FIJI                x
+145 NEW ZEALAND         x			x
+146 PAPUA N.GUINEA      x			x
+147 SOLOMON IS.         x
+148 TONGA               x
+149 VANUATU             x
+150 WESTERN SAMOA       x
+151 AFGHANISTAN
+152 ALBANIA
+153 BRUNEI
+154 CAMBODIA
+155 CUBA
+156 EQUATORIAL GUINEA
+157 N. KOREA
+158 LEBANON
+159 LIBYA
+160 MALDIVES
+161 SAO TOME & PRINCIPE
+162 VIETNAM
+  

@@ -1,0 +1,148 @@
+-----------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometric
+> s II\Writing Assignment\Stata\table3.log
+  log type:  text
+ opened on:   6 May 2020, 11:28:17
+
+. 
+. 
+. ** 150 country sample
+. 
+. use tableA1_final
+
+. 
+. gen lwork = log(work)
+
+. gen larea = log(area)
+
+. gen lgdpw85 = log(gdpw85)
+
+. 
+. * OLS regression of log income per person on trade share and the two size measures
+. eststo: quietly reg lgdpw85 open lwork larea
+(est1 stored)
+
+. 
+. * IV regression of log income per person on trade share and the two size measures
+. eststo: quietly ivregress 2sls lgdpw85 lwork larea (open = geogt)
+(est2 stored)
+
+. 
+. * First-stage regression summary statistics
+. estat firststage
+
+  First-stage regression summary statistics
+  --------------------------------------------------------------------------
+               |            Adjusted      Partial
+      Variable |   R-sq.       R-sq.        R-sq.      F(1,146)   Prob > F
+  -------------+------------------------------------------------------------
+          open |  0.5193      0.5095       0.0825        13.128    0.0004
+  --------------------------------------------------------------------------
+
+
+  Minimum eigenvalue statistic = 13.128      
+
+  Critical Values                      # of endogenous regressors:    1
+  Ho: Instruments are weak             # of excluded instruments:     1
+  ---------------------------------------------------------------------
+                                     |    5%     10%     20%     30%
+  2SLS relative bias                 |         (not available)
+  -----------------------------------+---------------------------------
+                                     |   10%     15%     20%     25%
+  2SLS Size of nominal 5% Wald test  |  16.38    8.96    6.66    5.53
+  LIML Size of nominal 5% Wald test  |  16.38    8.96    6.66    5.53
+  ---------------------------------------------------------------------
+
+
+. 
+. clear
+
+. 
+. ** 98 country sample
+. 
+. use tableA1_final_98
+
+. 
+. gen lwork = log(work)
+
+. gen larea = log(area)
+
+. gen lgdpw85 = log(gdpw85)
+
+. 
+. * OLS regression of log income per person on trade share and the two size measures
+. eststo: quietly reg lgdpw85 open lwork larea
+(est3 stored)
+
+. 
+. * IV regression of log income per person on trade share and the two size measures
+. eststo: quietly ivregress 2sls lgdpw85 lwork larea (open = geogt)
+(est4 stored)
+
+. 
+. * First-stage regression summary statistics
+. estat firststage
+
+  First-stage regression summary statistics
+  --------------------------------------------------------------------------
+               |            Adjusted      Partial
+      Variable |   R-sq.       R-sq.        R-sq.       F(1,94)   Prob > F
+  -------------+------------------------------------------------------------
+          open |  0.4291      0.4109       0.0825       8.45225    0.0045
+  --------------------------------------------------------------------------
+
+
+  Minimum eigenvalue statistic = 8.45225     
+
+  Critical Values                      # of endogenous regressors:    1
+  Ho: Instruments are weak             # of excluded instruments:     1
+  ---------------------------------------------------------------------
+                                     |    5%     10%     20%     30%
+  2SLS relative bias                 |         (not available)
+  -----------------------------------+---------------------------------
+                                     |   10%     15%     20%     25%
+  2SLS Size of nominal 5% Wald test  |  16.38    8.96    6.66    5.53
+  LIML Size of nominal 5% Wald test  |  16.38    8.96    6.66    5.53
+  ---------------------------------------------------------------------
+
+
+. 
+. 
+. esttab, se ar2
+
+----------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)   
+                  lgdpw85         lgdpw85         lgdpw85         lgdpw85   
+----------------------------------------------------------------------------
+open              0.00852***       0.0197*        0.00824*         0.0296*  
+                (0.00245)       (0.00900)       (0.00316)        (0.0131)   
+
+lwork               0.121           0.192*          0.214*          0.351*  
+                 (0.0640)        (0.0869)        (0.0977)         (0.142)   
+
+larea             -0.0131          0.0864         -0.0461           0.202   
+                 (0.0552)        (0.0965)        (0.0782)         (0.173)   
+
+_cons               7.396***        4.961*          6.954***        1.619   
+                  (0.659)         (2.009)         (1.118)         (3.412)   
+----------------------------------------------------------------------------
+N                     150             150              98              98   
+adj. R-sq           0.076               .           0.081               .   
+----------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometric
+> s II\Writing Assignment\Stata\table3.log
+  log type:  text
+ closed on:   6 May 2020, 11:28:18
+-----------------------------------------------------------------------------------------

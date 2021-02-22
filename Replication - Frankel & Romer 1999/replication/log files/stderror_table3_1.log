@@ -1,0 +1,688 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\E
+> conometrics II\Writing Assignment\Stata\stderror_table3_1.log
+  log type:  text
+ opened on:  28 Apr 2020, 10:57:37
+
+. 
+. 
+. ** Sample of 150 countries
+. 
+. use tableA1_final
+
+. 
+end of do-file
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. ** merge
+. merge 1:1 Country using "C:\Users\samso\Google Drive\University of Notre Dame
+> \Spring 2020\Econometrics II\Writing Assignment\Stata\allgeog150.dta"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               150  (_merge==3)
+    -----------------------------------------
+
+. drop _merge
+
+. save "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econom
+> etrics II\Writing Assignment\Stata\tableA1++.dta", replace
+file C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometr
+> ics II\Writing Assignment\Stata\tableA1++.dta saved
+
+. 
+. 
+end of do-file
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. gen lwork = log(work)
+
+. gen larea = log(area)
+
+. gen lgdpw85 = log(gdpw85)
+
+. 
+. 
+end of do-file
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. reg lgdpw85 open lwork larea
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(3, 146)       =      5.10
+       Model |   15.183815         3  5.06127168   Prob > F        =    0.0022
+    Residual |  144.886595       146  .992373939   R-squared       =    0.0949
+-------------+----------------------------------   Adj R-squared   =    0.0763
+       Total |   160.07041       149  1.07429805   Root MSE        =    .99618
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |   .0085247   .0024533     3.47   0.001     .0036762    .0133733
+       lwork |   .1209497   .0639861     1.89   0.061     -.005509    .2474085
+       larea |    -.01314   .0551753    -0.24   0.812    -.1221854    .0959054
+       _cons |   7.395858   .6591812    11.22   0.000     6.093088    8.698628
+------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. * IV regression with geogt as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       7.68
+                                                  Prob > chi2     =     0.0532
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.0499
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |   .0196634   .0090019     2.18   0.029     .0020201    .0373067
+       lwork |   .1917485   .0868989     2.21   0.027     .0214298    .3620673
+       larea |   .0863746   .0965192     0.89   0.371    -.1027995    .2755486
+       _cons |   4.961168   2.008687     2.47   0.014     1.024214    8.898122
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt
+
+. gen a0 = _b[_cons]
+
+. gen a1 = _b[open]
+
+. gen a2 = _b[lwork]
+
+. gen a3 = _b[larea]
+
+. 
+end of do-file
+
+. br
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. * IV regression with geogt0 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt0)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.41
+                                                  Prob > chi2     =     0.4913
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1652
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0103526   .0442859    -0.23   0.815    -.0971513    .0764461
+       lwork |   .0009625   .2906948     0.00   0.997    -.5687889    .5707139
+       larea |  -.1817937   .4000655    -0.45   0.650    -.9659077    .6023203
+       _cons |   11.52208   9.690405     1.19   0.234    -7.470761    30.51493
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt0
+
+. gen a0g0 = _b[_cons]
+
+. gen a1g0 = _b[open]
+
+. gen a2g0 = _b[lwork]
+
+. gen a3g0 = _b[larea]
+
+. 
+end of do-file
+
+. br
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. * IV regression with geogt1 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt1)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.41
+                                                  Prob > chi2     =     0.4920
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1663
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0104142   .0442949    -0.24   0.814    -.0972306    .0764021
+       lwork |   .0005709   .2907674     0.00   0.998    -.5693227    .5704646
+       larea |  -.1823441   .4001534    -0.46   0.649    -.9666304    .6019422
+       _cons |   11.53555   9.692393     1.19   0.234    -7.461191    30.53229
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt1
+
+. gen a0g1 = _b[_cons]
+
+. gen a1g1 = _b[open]
+
+. gen a2g1 = _b[lwork]
+
+. gen a3g1 = _b[larea]
+
+. 
+. * IV regression with geogt2 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt2)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.41
+                                                  Prob > chi2     =     0.4911
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1649
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0103356   .0444167    -0.23   0.816    -.0973907    .0767195
+       lwork |   .0010707   .2914955     0.00   0.997    -.5702499    .5723913
+       larea |  -.1816417   .4012193    -0.45   0.651     -.968017    .6047337
+       _cons |   11.51836   9.718967     1.19   0.236    -7.530461    30.56719
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt2
+
+. gen a0g2 = _b[_cons]
+
+. gen a1g2 = _b[open]
+
+. gen a2g2 = _b[lwork]
+
+. gen a3g2 = _b[larea]
+
+. 
+. * IV regression with geogt3 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt3)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4908
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1645
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0103138   .0442936    -0.23   0.816    -.0971276       .0765
+       lwork |   .0012095   .2907316     0.00   0.997     -.568614    .5710329
+       larea |  -.1814466   .4001285    -0.45   0.650    -.9656841    .6027909
+       _cons |   11.51359   9.692078     1.19   0.235    -7.482533    30.50972
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt3
+
+. gen a0g3 = _b[_cons]
+
+. gen a1g3 = _b[open]
+
+. gen a2g3 = _b[lwork]
+
+. gen a3g3 = _b[larea]
+
+. 
+. * IV regression with geogt4 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt4)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.41
+                                                  Prob > chi2     =     0.4911
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1649
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0103398   .0442729    -0.23   0.815    -.0971132    .0764335
+       lwork |   .0010439   .2906118     0.00   0.997    -.5685448    .5706325
+       larea |  -.1816794   .3999497    -0.45   0.650    -.9655664    .6022076
+       _cons |   11.51929   9.687581     1.19   0.234    -7.468024     30.5066
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt4
+
+. gen a0g4 = _b[_cons]
+
+. gen a1g4 = _b[open]
+
+. gen a2g4 = _b[lwork]
+
+. gen a3g4 = _b[larea]
+
+. 
+. * IV regression with geogt5 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt5)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.41
+                                                  Prob > chi2     =     0.4914
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1654
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0103637    .044302    -0.23   0.815    -.0971941    .0764667
+       lwork |    .000892   .2907975     0.00   0.998    -.5690606    .5708447
+       larea |  -.1818928     .40021    -0.45   0.649      -.96629    .6025044
+       _cons |   11.52451   9.693942     1.19   0.235     -7.47527    30.52429
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt5
+
+. gen a0g5 = _b[_cons]
+
+. gen a1g5 = _b[open]
+
+. gen a2g5 = _b[lwork]
+
+. gen a3g5 = _b[larea]
+
+. 
+. * IV regression with geogt6 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt6)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4906
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1642
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |   -.010296   .0442037    -0.23   0.816    -.0969338    .0763417
+       lwork |   .0013224   .2901738     0.00   0.996    -.5674078    .5700526
+       larea |  -.1812879   .3993324    -0.45   0.650    -.9639651    .6013893
+       _cons |   11.50971   9.672459     1.19   0.234    -7.447962    30.46738
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt6
+
+. gen a0g6 = _b[_cons]
+
+. gen a1g6 = _b[open]
+
+. gen a2g6 = _b[lwork]
+
+. gen a3g6 = _b[larea]
+
+. 
+. * IV regression with geogt7 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt7)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.41
+                                                  Prob > chi2     =     0.4911
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1649
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0103375   .0442798    -0.23   0.815    -.0971243    .0764493
+       lwork |   .0010588   .2906532     0.00   0.997     -.568611    .5707285
+       larea |  -.1816584   .4000097    -0.45   0.650    -.9656631    .6023462
+       _cons |   11.51877   9.689072     1.19   0.235    -7.471457    30.50901
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt7
+
+. gen a0g7 = _b[_cons]
+
+. gen a1g7 = _b[open]
+
+. gen a2g7 = _b[lwork]
+
+. gen a3g7 = _b[larea]
+
+. 
+. * IV regression with geogt8 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt8)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4904
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1638
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |   -.010276   .0442428    -0.23   0.816    -.0969902    .0764383
+       lwork |   .0014499   .2904084     0.00   0.996    -.5677402    .5706399
+       larea |  -.1811087   .3996746    -0.45   0.650    -.9644565    .6022391
+       _cons |   11.50532   9.680973     1.19   0.235    -7.469034    30.47968
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt8
+
+. gen a0g8 = _b[_cons]
+
+. gen a1g8 = _b[open]
+
+. gen a2g8 = _b[lwork]
+
+. gen a3g8 = _b[larea]
+
+. 
+. * IV regression with geogt9 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt9)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4903
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1637
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0102677   .0442641    -0.23   0.817    -.0970237    .0764883
+       lwork |   .0015026   .2905373     0.01   0.996      -.56794    .5709452
+       larea |  -.1810345   .3998617    -0.45   0.651     -.964749      .60268
+       _cons |   11.50351   9.685622     1.19   0.235    -7.479961    30.48698
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt9
+
+. gen a0g9 = _b[_cons]
+
+. gen a1g9 = _b[open]
+
+. gen a2g9 = _b[lwork]
+
+. gen a3g9 = _b[larea]
+
+. 
+. * IV regression with geogt10 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt10)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4901
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1634
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0102524    .044243    -0.23   0.817     -.096967    .0764623
+       lwork |   .0015998   .2904031     0.01   0.996    -.5675799    .5707795
+       larea |  -.1808979   .3996731    -0.45   0.651    -.9642429     .602447
+       _cons |   11.50017   9.681008     1.19   0.235     -7.47426     30.4746
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt10
+
+. gen a0g10 = _b[_cons]
+
+. gen a1g10 = _b[open]
+
+. gen a2g10 = _b[lwork]
+
+. gen a3g10 = _b[larea]
+
+. 
+. * IV regression with geogt11 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt11)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4895
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1624
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0101992   .0441881    -0.23   0.817    -.0968062    .0764079
+       lwork |   .0019379   .2900506     0.01   0.995    -.5665508    .5704266
+       larea |  -.1804227    .399181    -0.45   0.651     -.962803    .6019576
+       _cons |   11.48854   9.669004     1.19   0.235    -7.462359    30.43944
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt11
+
+. gen a0g11 = _b[_cons]
+
+. gen a1g11 = _b[open]
+
+. gen a2g11 = _b[lwork]
+
+. gen a3g11 = _b[larea]
+
+. 
+. * IV regression with geogt12 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt12)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4893
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1621
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0101818   .0442026    -0.23   0.818    -.0968174    .0764538
+       lwork |   .0020484   .2901355     0.01   0.994    -.5666067    .5707035
+       larea |  -.1802674   .3993074    -0.45   0.652    -.9628956    .6023607
+       _cons |   11.48474   9.672181     1.19   0.235    -7.472383    30.44187
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt12
+
+. gen a0g12 = _b[_cons]
+
+. gen a1g12 = _b[open]
+
+. gen a2g12 = _b[lwork]
+
+. gen a3g12 = _b[larea]
+
+. 
+. * IV regression with geogt13 as instrument
+. ivregress 2sls lgdpw85 lwork larea (open = geogt13)
+
+Instrumental variables (2SLS) regression          Number of obs   =        150
+                                                  Wald chi2(3)    =       2.42
+                                                  Prob > chi2     =     0.4908
+                                                  R-squared       =          .
+                                                  Root MSE        =     1.1644
+
+------------------------------------------------------------------------------
+     lgdpw85 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        open |  -.0103119   .0442287    -0.23   0.816    -.0969987    .0763748
+       lwork |   .0012214    .290332     0.00   0.997     -.567819    .5702617
+       larea |  -.1814299   .3995554    -0.45   0.650    -.9645441    .6016843
+       _cons |   11.51318   9.677921     1.19   0.234    -7.455194    30.48156
+------------------------------------------------------------------------------
+Instrumented:  open
+Instruments:   lwork larea geogt13
+
+. gen a0g13 = _b[_cons]
+
+. gen a1g13 = _b[open]
+
+. gen a2g13 = _b[lwork]
+
+. gen a3g13 = _b[larea]
+
+. 
+end of do-file
+
+. br
+
+. br
+
+. br
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. * First column of da/db
+. 
+. gen da1db0 = (a0g0 - a0)/0.001
+
+. gen da1db1 = (a0g1 - a0)/0.001
+
+. gen da1db2 = (a0g2 - a0)/0.001
+
+. gen da1db3 = (a0g3 - a0)/0.001
+
+. gen da1db4 = (a0g4 - a0)/0.001
+
+. gen da1db5 = (a0g5 - a0)/0.001
+
+. gen da1db6 = (a0g6 - a0)/0.001
+
+. gen da1db7 = (a0g7 - a0)/0.001
+
+. gen da1db8 = (a0g8 - a0)/0.001
+
+. gen da1db9 = (a0g9 - a0)/0.001
+
+. gen da1db10 = (a0g10 - a0)/0.001
+
+. gen da1db11 = (a0g11 - a0)/0.001
+
+. gen da1db12 = (a0g12 - a0)/0.001
+
+. gen da1db13 = (a0g13 - a0)/0.001
+
+. 
+. * Second column
+. 
+. gen da2db0 = (a1g0 - a1)/0.001
+
+. gen da2db1 = (a1g1 - a1)/0.001
+
+. gen da2db2 = (a1g2 - a1)/0.001
+
+. gen da2db3 = (a1g3 - a1)/0.001
+
+. gen da2db4 = (a1g4 - a1)/0.001
+
+. gen da2db5 = (a1g5 - a1)/0.001
+
+. gen da2db6 = (a1g6 - a1)/0.001
+
+. gen da2db7 = (a1g7 - a1)/0.001
+
+. gen da2db8 = (a1g8 - a1)/0.001
+
+. gen da2db9 = (a1g9 - a1)/0.001
+
+. gen da2db10 = (a1g10 - a1)/0.001
+
+. gen da2db11 = (a1g11 - a1)/0.001
+
+. gen da2db12 = (a1g12 - a1)/0.001
+
+. gen da2db13 = (a1g13 - a1)/0.001
+
+. 
+. * Third column
+. 
+. gen da3db0 = (a2g0 - a2)/0.001
+
+. gen da3db1 = (a2g1 - a2)/0.001
+
+. gen da3db2 = (a2g2 - a2)/0.001
+
+. gen da3db3 = (a2g3 - a2)/0.001
+
+. gen da3db4 = (a2g4 - a2)/0.001
+
+. gen da3db5 = (a2g5 - a2)/0.001
+
+. gen da3db6 = (a2g6 - a2)/0.001
+
+. gen da3db7 = (a2g7 - a2)/0.001
+
+. gen da3db8 = (a2g8 - a2)/0.001
+
+. gen da3db9 = (a2g9 - a2)/0.001
+
+. gen da3db10 = (a2g10 - a2)/0.001
+
+. gen da3db11 = (a2g11 - a2)/0.001
+
+. gen da3db12 = (a2g12 - a2)/0.001
+
+. gen da3db13 = (a2g13 - a2)/0.001
+
+. 
+. 
+. * Fourth column
+. 
+. gen da4db0 = (a3g0 - a3)/0.001
+
+. gen da4db1 = (a3g1 - a3)/0.001
+
+. gen da4db2 = (a3g2 - a3)/0.001
+
+. gen da4db3 = (a3g3 - a3)/0.001
+
+. gen da4db4 = (a3g4 - a3)/0.001
+
+. gen da4db5 = (a3g5 - a3)/0.001
+
+. gen da4db6 = (a3g6 - a3)/0.001
+
+. gen da4db7 = (a3g7 - a3)/0.001
+
+. gen da4db8 = (a3g8 - a3)/0.001
+
+. gen da4db9 = (a3g9 - a3)/0.001
+
+. gen da4db10 = (a3g10 - a3)/0.001
+
+. gen da4db11 = (a3g11 - a3)/0.001
+
+. gen da4db12 = (a3g12 - a3)/0.001
+
+. gen da4db13 = (a3g13 - a3)/0.001
+
+. 
+. 
+end of do-file
+
+. br
+
+. clear
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. * Loading the data
+. use table1
+
+. 
+. * Drop observations where bilateral trade is 0
+. drop if trade==0
+(562 observations deleted)
+
+. 
+. * Generating the relevant variables for the bilateral trade regression
+. gen trdsh = trade/gdpi
+gdpi not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. capture log close

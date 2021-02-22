@@ -1,0 +1,187 @@
+-----------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assig
+> nment\Stata\table4.log
+  log type:  text
+ opened on:   6 May 2020, 13:30:57
+
+. 
+. 
+. *convert data into Stata format
+. infile country_code gdpw85 gdpw60 avinv ngdelta avsch open using "C:\Users\samso\Google Drive\University 
+> of Notre Dame\Spring 2020\Econometrics II\Writing Assignment\Data\tablelist\info150.dat"
+(150 observations read)
+
+. save "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment
+> \Stata\info150.dta", replace
+file C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment\St
+> ata\info150.dta saved
+
+. 
+. clear 
+
+. 
+. infile code1 code2 alnky phis lna using "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020
+> \Econometrics II\Writing Assignment\Data\tablelist\hj98.dat"
+(98 observations read)
+
+. save "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment
+> \Stata\hj98.dta", replace
+file C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment\St
+> ata\hj98.dta saved
+
+. 
+. clear
+
+. 
+. infile code1 code2 code3 gdpw85 gdpw60 avinv ngdelta avsch open using "C:\Users\samso\Google Drive\Univer
+> sity of Notre Dame\Spring 2020\Econometrics II\Writing Assignment\Data\tablelist\info98.dat"
+(98 observations read)
+
+. save "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment
+> \Stata\info98.dta", replace
+file C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment\St
+> ata\info98.dta saved
+
+. 
+. merge 1:1 _n using "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writ
+> ing Assignment\Stata\hj98.dta"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                                98  (_merge==3)
+    -----------------------------------------
+
+. drop _merge
+
+. save "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment
+> \Stata\table4.dta", replace
+file C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assignment\St
+> ata\table4.dta saved
+
+. 
+. clear
+
+. 
+. use tableA1_final_98
+
+. gen code1 = _n
+
+. merge 1:1 _n using "C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writ
+> ing Assignment\Stata\table4.dta"
+(note: variable gdpw85 was long, now double to accommodate using data's values)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                                98  (_merge==3)
+    -----------------------------------------
+
+. drop _merge
+
+. 
+. gen lwork = log(work)
+
+. gen larea = log(area)
+
+. gen lgdpw85 = log(gdpw85)
+
+. gen lgdpw60 = log(gdpw60)
+
+. gen lgrow = lgdpw85 - lgdpw60
+
+. 
+. *Columns 1 and 2 of Table 4
+. eststo: quietly reg alnky open lwork larea
+(est1 stored)
+
+. eststo: quietly ivregress 2sls alnky lwork larea (open = geogt)
+(est2 stored)
+
+. 
+. *Columns 3 and 4 of Table 4
+. eststo: quietly reg phis open lwork larea
+(est3 stored)
+
+. eststo: quietly ivregress 2sls phis lwork larea (open = geogt)
+(est4 stored)
+
+. 
+. *Columns 5 and 6 of Table 4
+. eststo: quietly reg lna open lwork larea
+(est5 stored)
+
+. eststo: quietly ivregress 2sls lna lwork larea (open = geogt)
+(est6 stored)
+
+. 
+. *Columns 7 and 8 of Table 4
+. eststo: quietly reg lgdpw60 open lwork larea
+(est7 stored)
+
+. eststo: quietly ivregress 2sls lgdpw60 lwork larea (open = geogt)
+(est8 stored)
+
+. 
+. *Columns 9 and 10 of Table 4
+. eststo: quietly reg lgrow open lwork larea
+(est9 stored)
+
+. eststo: quietly ivregress 2sls lgrow lwork larea (open = geogt)
+(est10 stored)
+
+. 
+. esttab, se ar2
+
+-----------------------------------------------------------------------------------------------------------
+> -----------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)             (6)  
+>            (7)             (8)             (9)            (10)   
+                    alnky           alnky            phis            phis             lna             lna  
+>        lgdpw60         lgdpw60           lgrow           lgrow   
+-----------------------------------------------------------------------------------------------------------
+> -----------------------------------------------------------------
+open              0.00364***      0.00592         0.00181*        0.00370         0.00266          0.0204* 
+>        0.00379          0.0166         0.00446***       0.0131** 
+               (0.000957)       (0.00336)      (0.000844)       (0.00295)       (0.00209)       (0.00945)  
+>      (0.00292)        (0.0109)       (0.00109)       (0.00480)   
+
+lwork              0.0249          0.0397          0.0620*         0.0742*          0.206**         0.320**
+>         0.0911           0.173           0.122***        0.178***
+                 (0.0296)        (0.0364)        (0.0261)        (0.0320)        (0.0645)         (0.102)  
+>       (0.0903)         (0.118)        (0.0339)        (0.0520)   
+
+larea              0.0414          0.0679         -0.0137         0.00822          -0.126*         0.0795  
+>        -0.0197           0.128         -0.0264          0.0734   
+                 (0.0237)        (0.0443)        (0.0209)        (0.0390)        (0.0516)         (0.125)  
+>       (0.0723)         (0.144)        (0.0271)        (0.0634)   
+
+_cons              -0.718*         -1.288          0.0982          -0.373           7.469***        3.051  
+>          7.454***        4.267          -0.500          -2.648*  
+                  (0.339)         (0.873)         (0.299)         (0.768)         (0.738)         (2.455)  
+>        (1.033)         (2.837)         (0.388)         (1.248)   
+-----------------------------------------------------------------------------------------------------------
+> -----------------------------------------------------------------
+N                      98              98              98              98              98              98  
+>             98              98              98              98   
+adj. R-sq           0.106           0.051           0.063           0.013           0.113               .  
+>         -0.003               .           0.211               .   
+-----------------------------------------------------------------------------------------------------------
+> -----------------------------------------------------------------
+Standard errors in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometrics II\Writing Assig
+> nment\Stata\table4.log
+  log type:  text
+ closed on:   6 May 2020, 13:30:58
+-----------------------------------------------------------------------------------------------------------

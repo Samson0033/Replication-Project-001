@@ -1,0 +1,362 @@
+-----------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\samso\Google Drive\University of Notre Dame\Spring 2020\Econometric
+> s II\Writing Assignment\Stata\figure1+table2.log
+  log type:  text
+ opened on:  27 Apr 2020, 11:39:01
+
+. 
+. use tableA1_final
+
+. 
+. * Scatter Plot Actual Trade Share vs Constructed Trade Share
+. scatter open geogt, ytitle("Actual Trade Share") xtitle("Constructed Trade Share")
+
+. 
+. * Correlation between Actual Trade Share vs Constructed Trade Share
+. cor open geogt
+(obs=150)
+
+             |     open    geogt
+-------------+------------------
+        open |   1.0000
+       geogt |   0.6159   1.0000
+
+
+. 
+. 
+. ***************************************
+. gen lwork = log(work)
+
+. gen larea = log(area)
+
+. 
+. 
+. * Regression of Actual Trade Share on Constructed Trade Share
+. reg open geogt
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(1, 148)       =     90.46
+       Model |  119391.902         1  119391.902   Prob > F        =    0.0000
+    Residual |  195342.544       148  1319.88205   R-squared       =    0.3793
+-------------+----------------------------------   Adj R-squared   =    0.3751
+       Total |  314734.446       149  2112.31172   Root MSE        =     36.33
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       geogt |   .9913492   .1042334     9.51   0.000     .7853713    1.197327
+       _cons |   46.41166   4.103604    11.31   0.000     38.30243    54.52088
+------------------------------------------------------------------------------
+
+. 
+. * regression of Actual trade share on log population and log area
+. reg open lwork larea
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(2, 147)       =     66.80
+       Model |  149850.199         2  74925.0997   Prob > F        =    0.0000
+    Residual |  164884.247       147  1121.66154   R-squared       =    0.4761
+-------------+----------------------------------   Adj R-squared   =    0.4690
+       Total |  314734.446       149  2112.31172   Root MSE        =    33.491
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       lwork |   -6.35614   2.086335    -3.05   0.003    -10.47922   -2.233055
+       larea |  -8.934172   1.702332    -5.25   0.000    -12.29838   -5.569966
+       _cons |   218.5805   12.88848    16.96   0.000     193.1099    244.0511
+------------------------------------------------------------------------------
+
+. 
+. * regression of Actual Trade Share on Constructed trade share,
+. * log population and log area
+. reg open geogt lwork larea
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(3, 146)       =     52.58
+       Model |  163453.086         3   54484.362   Prob > F        =    0.0000
+    Residual |   151281.36       146   1036.1737   R-squared       =    0.5193
+-------------+----------------------------------   Adj R-squared   =    0.5095
+       Total |  314734.446       149  2112.31172   Root MSE        =     32.19
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       geogt |   .4500047   .1241989     3.62   0.000     .2045447    .6954647
+       lwork |  -4.721193   2.055397    -2.30   0.023    -8.783368   -.6590174
+       larea |  -6.448533   1.774175    -3.63   0.000    -9.954915    -2.94215
+       _cons |   166.9662   18.87804     8.84   0.000     129.6567    204.2757
+------------------------------------------------------------------------------
+
+. 
+. 
+. *output to a table
+. eststo: quietly reg open geogt
+(est1 stored)
+
+. eststo: quietly reg open lwork larea
+(est2 stored)
+
+. eststo: quietly reg open geogt lwork larea
+(est3 stored)
+
+. esttab, se ar2
+
+------------------------------------------------------------
+                      (1)             (2)             (3)   
+                     open            open            open   
+------------------------------------------------------------
+geogt               0.991***                        0.450***
+                  (0.104)                         (0.124)   
+
+lwork                              -6.356**        -4.721*  
+                                  (2.086)         (2.055)   
+
+larea                              -8.934***       -6.449***
+                                  (1.702)         (1.774)   
+
+_cons               46.41***        218.6***        167.0***
+                  (4.104)         (12.89)         (18.88)   
+------------------------------------------------------------
+N                     150             150             150   
+adj. R-sq           0.375           0.469           0.509   
+------------------------------------------------------------
+Standard errors in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+end of do-file
+
+. gen dd1 =  open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons]
+
+. edit
+
+. scatter dd1 geogt
+
+. predict
+'' found where varname expected
+r(7);
+
+. predict dd
+(option xb assumed; fitted values)
+
+. drop dd1
+
+. gen dd1 =  dd - _b[lwork]*lwork - _b[larea]*larea - _b[_cons]
+
+. scatter dd1 geogt
+
+. edit
+
+. drop dd1
+
+. gen dd1 =  open +4.721193*lwork  +6.448533*larea - 166.9662
+
+. dit
+command dit is unrecognized
+r(199);
+
+. edit
+
+. scatter dd1 geogt
+
+. drop dd1
+
+. drop dd
+
+. gen dd =  open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons]
+
+. scatter dd geogt
+
+. edit
+
+. scatter dd geogt if Country != "LUXEMBOURG" | Country != "SINGAPORE"
+
+. scatter dd geogt if Country != "LUXEMBOURG" | Country != "SINGAPORE"
+
+. scatter dd geogt if Country != "LUXEMBOURG"
+
+. scatter dd geogt
+
+. gen dd =  (open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons])/0.45
+variable dd already defined
+r(110);
+
+. drop dd
+
+. gen dd =  (open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons])/0.45
+
+. edit
+
+. scatter open dd
+
+. scatter dd geogt
+
+. scatter open geogt
+
+. drop dd
+
+. predict dd
+(option xb assumed; fitted values)
+
+. edit
+
+. drop dd
+
+. reg open lwork larea
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(2, 147)       =     66.80
+       Model |  149850.199         2  74925.0997   Prob > F        =    0.0000
+    Residual |  164884.247       147  1121.66154   R-squared       =    0.4761
+-------------+----------------------------------   Adj R-squared   =    0.4690
+       Total |  314734.446       149  2112.31172   Root MSE        =    33.491
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       lwork |   -6.35614   2.086335    -3.05   0.003    -10.47922   -2.233055
+       larea |  -8.934172   1.702332    -5.25   0.000    -12.29838   -5.569966
+       _cons |   218.5805   12.88848    16.96   0.000     193.1099    244.0511
+------------------------------------------------------------------------------
+
+. gen dd = open - _b[lwork]-_b[larea] -_cons
+
+. edit
+
+. drop dd
+
+. gen dd = open - _b[lwork]-_b[larea] -_b[_cons]
+
+. edit
+
+. drop dd
+
+. reg open geogt lwork larea
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(3, 146)       =     52.58
+       Model |  163453.086         3   54484.362   Prob > F        =    0.0000
+    Residual |   151281.36       146   1036.1737   R-squared       =    0.5193
+-------------+----------------------------------   Adj R-squared   =    0.5095
+       Total |  314734.446       149  2112.31172   Root MSE        =     32.19
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       geogt |   .4500047   .1241989     3.62   0.000     .2045447    .6954647
+       lwork |  -4.721193   2.055397    -2.30   0.023    -8.783368   -.6590174
+       larea |  -6.448533   1.774175    -3.63   0.000    -9.954915    -2.94215
+       _cons |   166.9662   18.87804     8.84   0.000     129.6567    204.2757
+------------------------------------------------------------------------------
+
+. gen dd = open - _b[lwork]-_b[larea] -_b[_cons]
+
+. edit
+
+. sort dd
+
+. drop dd
+
+. gen dd = open -_b[geogt] - _b[lwork]-_b[larea] -_b[_cons]
+
+. edit
+
+. sort Country
+
+. gen dd1 =  open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons]
+
+. scatter dd1 geogt
+
+. drop dd dd1
+
+. gen dd1 =  (open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons])/0.45
+
+. drop dd1
+
+. gen dd1 =  (open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons])/_b[geogt]
+
+. edit
+
+. drop dd1
+
+. gen dd1 =  open - _b[lwork]*lwork - _b[larea]*larea - _b[_cons]
+
+. edit
+
+. reg open geogt
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(1, 148)       =     90.46
+       Model |  119391.902         1  119391.902   Prob > F        =    0.0000
+    Residual |  195342.544       148  1319.88205   R-squared       =    0.3793
+-------------+----------------------------------   Adj R-squared   =    0.3751
+       Total |  314734.446       149  2112.31172   Root MSE        =     36.33
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       geogt |   .9913492   .1042334     9.51   0.000     .7853713    1.197327
+       _cons |   46.41166   4.103604    11.31   0.000     38.30243    54.52088
+------------------------------------------------------------------------------
+
+. reg open geogt lwork larea
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(3, 146)       =     52.58
+       Model |  163453.086         3   54484.362   Prob > F        =    0.0000
+    Residual |   151281.36       146   1036.1737   R-squared       =    0.5193
+-------------+----------------------------------   Adj R-squared   =    0.5095
+       Total |  314734.446       149  2112.31172   Root MSE        =     32.19
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       geogt |   .4500047   .1241989     3.62   0.000     .2045447    .6954647
+       lwork |  -4.721193   2.055397    -2.30   0.023    -8.783368   -.6590174
+       larea |  -6.448533   1.774175    -3.63   0.000    -9.954915    -2.94215
+       _cons |   166.9662   18.87804     8.84   0.000     129.6567    204.2757
+------------------------------------------------------------------------------
+
+. reg open geogt
+
+      Source |       SS           df       MS      Number of obs   =       150
+-------------+----------------------------------   F(1, 148)       =     90.46
+       Model |  119391.902         1  119391.902   Prob > F        =    0.0000
+    Residual |  195342.544       148  1319.88205   R-squared       =    0.3793
+-------------+----------------------------------   Adj R-squared   =    0.3751
+       Total |  314734.446       149  2112.31172   Root MSE        =     36.33
+
+------------------------------------------------------------------------------
+        open |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       geogt |   .9913492   .1042334     9.51   0.000     .7853713    1.197327
+       _cons |   46.41166   4.103604    11.31   0.000     38.30243    54.52088
+------------------------------------------------------------------------------
+
+. gen dd2 = _b[geogt] + _cons
+
+. drop dd2
+
+. gen dd2 = _b[geogt]*geogt + _cons
+
+. drop dd2
+
+. gen dd2 = _b[geogt]*geogt + _b[_cons]
+
+. clear all
+
+. do "C:\Users\samso\AppData\Local\Temp\STD01000000.tmp"
+
+. 
+. **************************************************************************
+. *                                                                                      
+>                                                           *
+. *                                       about this .do file ......                     
+>                                   *
+. *                                                                                      
+>                                                           *
+. **************************************************************************
+. 
+. capture log close

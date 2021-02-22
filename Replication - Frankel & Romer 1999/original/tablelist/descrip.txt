@@ -1,0 +1,43 @@
+Description of data files for "Does Trade Cause Growth?"
+Jeffrey A. Frankel and David Romer
+
+trade62.dat
+	country code, 1985 bilateral trade (in millions) for 62 countries
+
+dist62.dat
+	country code, great-circle distance (in kilometers), adjacency dummy
+	(dist162.dat is same for 162-country sample)
+
+var62i.dat
+	country code, 1985 GDP, landlocked dummy, 1985 workers (in thousands), 
+	area (in square miles) for country i in bilateral pair
+	(var162i.dat is same for 162-country sample)
+
+var62j.dat
+	country code, 1985 GDP, landlocked dummy, 1985 workers, area
+	for country j in bilateral pair
+	(var162j.dat is same for 162-country sample)
+
+geog150.dat
+	country code, 1985 fitted trade share
+
+info150.dat
+	country code, 1985 per-worker GDP, 1960 per-worker GDP,
+	1960-85 average investment/GDP, 1960-85 average population growth + 0.05,
+	1960-85 average schooling, 1985 actual trade share
+	(info98.dat is same for 98-country sample [two extra codes at beginning])
+
+popwork150.dat
+	country code, 1985 population (in thousands), 1985 workers (in thousands)
+	(popwork98.dat is same for 98-country sample)
+
+area150.dat
+	country code, area
+	(area98.dat is same for 98-country sample)
+
+allgeog.dat
+	code, 1985 fitted trade share, 14 fitted trade shares
+	(allgeog98.dat is same for 98-country sample)
+
+hj98.dat
+	two country codes, [alpha/(1-alpha)]*ln(K/Y), phi(S), ln(A) 
